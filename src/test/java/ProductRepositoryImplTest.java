@@ -1,6 +1,7 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+import fr.caprog.stockmanager.domain.Product;
 import fr.caprog.stockmanager.repository.DBManager;
 import fr.caprog.stockmanager.repository.ProductRepository;
 import fr.caprog.stockmanager.repository.ProductRepositoryImpl;
@@ -8,22 +9,33 @@ import fr.caprog.stockmanager.repository.ProductRepositoryImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Logger;
+
 
 public class ProductRepositoryImplTest {
 
-    private ProductRepository productRepository;
+    private static final Logger logger = Logger.getLogger(DBManager.class.getName());;
+
+    private static ProductRepository productRepository;
 
     @BeforeAll
-    public void setUp() {
-        String url = "jdbc:h2:~/test;MODE=MYSQL;DATABASE_TO_LOWER=TRUE";
+    public static void setUp() throws ClassNotFoundException {
+        Class.forName("org.h2.Driver");
+        String url = "jdbc:h2:~/testINIT=RUNSCRIPT FROM './resources/db.sql'";
         String username = "sa";
         String password = "";
 
-        this.productRepository = new ProductRepositoryImpl(new DBManager(url, username, password));
+        productRepository = new ProductRepositoryImpl(new DBManager(url, username, password));
     }
 
     @Test
-    public void findAll() {
+    public void findAll() throws SQLException, ClassNotFoundException {
+
+        List<Product> products = productRepository.findAll();
+        System.out.println(products);
+
         assertEquals(true, true);
     }
 }
