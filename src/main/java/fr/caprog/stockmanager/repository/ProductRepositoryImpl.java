@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class ProductRepositoryImpl implements  ProductRepository{
 
-    private static final Logger logger = Logger.getLogger(DBManager.class.getName());;
+    private static final Logger logger = Logger.getLogger(DBManager.class.getName());
 
     private static final String GET_PRODUCTS = "select * from product";
 
