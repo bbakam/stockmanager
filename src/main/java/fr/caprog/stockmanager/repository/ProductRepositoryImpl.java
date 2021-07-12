@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class ProductRepositoryImpl implements  ProductRepository{
 
-    private static final Logger logger = Logger.getLogger(DBManager.class.getName());;
+    private static final Logger logger = Logger.getLogger(DBManager.class.getName());
 
     private static final String GET_PRODUCTS = "select * from product";
 
@@ -23,11 +23,11 @@ public class ProductRepositoryImpl implements  ProductRepository{
     }
 
     @Override
-    public List<Product> findAll() throws SQLException, ClassNotFoundException {
+    public List<Product> findAll() throws SQLException {
 
         try (Connection con = dbManager.getConnection();
              PreparedStatement ps = con.prepareStatement(GET_PRODUCTS);
-             ResultSet rs = ps.executeQuery();) {
+             ResultSet rs = ps.executeQuery()) {
 
             List<Product> products = new ArrayList<>();
             while(rs.next()) {
@@ -35,6 +35,7 @@ public class ProductRepositoryImpl implements  ProductRepository{
                 product.setName(rs.getString("name"));
                 product.setDescription(rs.getString("description"));
                 product.setStock(rs.getInt("stock"));
+                product.setPrice(rs.getDouble("price"));
                 products.add(product);
             }
 
@@ -69,7 +70,7 @@ public class ProductRepositoryImpl implements  ProductRepository{
     }
 
     @Override
-    public Product save(String name, String description, int stock) {
+    public Product save(String name, String description, int stock, double price) {
         return null;
     }
 

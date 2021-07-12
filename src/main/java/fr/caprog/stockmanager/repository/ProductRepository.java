@@ -18,7 +18,7 @@ public interface ProductRepository {
 
     Product updateStock(int id, int stock);
 
-    Product save(String name, String description, int stock);
+    Product save(String name, String description, int stock, double price);
 
     boolean exist(String name);
 }
