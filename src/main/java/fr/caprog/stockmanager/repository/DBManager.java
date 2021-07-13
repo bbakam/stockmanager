@@ -6,16 +6,17 @@ import java.util.logging.Logger;
 
 public class DBManager {
 
-    private static final Logger logger = Logger.getLogger(DBManager.class.getName());;
+    private static final Logger logger = Logger.getLogger(DBManager.class.getName());
 
     private String url;
     private String username;
     private String password;
 
-    public DBManager(String url, String username, String password) {
+    public DBManager(String url, String username, String password, String driver) throws ClassNotFoundException {
         this.url = url;
         this.username = username;
         this.password = password;
+        Class.forName(driver);
     }
 
     public Connection getConnection() throws SQLException {
