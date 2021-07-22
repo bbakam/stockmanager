@@ -64,7 +64,7 @@ public class TestUserRepositoryIT {
 
     @Test
     @Order(1)
-    public void should_save_user_admin_in_db_and_find_user_by_username() {
+    public void should_save_user_admin_in_db_and_find_user_by_username() throws SQLException {
 
         userRepository.save("admin", "", "");
         User user = userRepository.findByUsername("admin");
@@ -81,7 +81,7 @@ public class TestUserRepositoryIT {
 
     @Test
     @Order(2)
-    public void should_update_password_in_db() {
+    public void should_update_password_in_db() throws SQLException {
 
         userRepository.updatePassword(1, "password");
         User user = userRepository.findByUsername("admin");
@@ -92,7 +92,7 @@ public class TestUserRepositoryIT {
 
     @Test
     @Order(3)
-    public void should_update_profile_in_db() {
+    public void should_update_profile_in_db() throws SQLException {
 
         userRepository.updateProfile(1, "admin");
         User user = userRepository.findOne(1);

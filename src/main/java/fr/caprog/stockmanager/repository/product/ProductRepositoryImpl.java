@@ -18,6 +18,7 @@ public class ProductRepositoryImpl implements  ProductRepository{
     private static final String GET_PRODUCTS = "select * from product";
     private static final String SAVE_PRODUCT = "insert into product(name, description, price, stock) values (?, ?, ?, ?)";
     private static final String DELETE_PRODUCT = "delete from product where id = ?" ;
+    private static final String UPDATE_DESCRIPTION_PRODUCT = "update product set description = ? where id = ?";
     private static final String FIND_ONE_PRODUCT = "select * from product where id = ?";
     private static final String UPDATE_NAME_PRODUCT = "update product set stock = ? where id = ?";
     private static final int DELETED_ONE_DATA = 1;
@@ -87,8 +88,14 @@ public class ProductRepositoryImpl implements  ProductRepository{
     }
 
     @Override
-    public void updateDescription(int id, String description) {
+    public void updateDescription(int id, String description) throws SQLException {
+        try (Connection con = dbManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(UPDATE_DESCRIPTION_PRODUCT)) {
 
+            ps.setInt(2, id);
+            ps.setString(1, description);
+            ps.executeUpdate();
+        }
     }
 
     @Override
@@ -114,12 +121,15 @@ public class ProductRepositoryImpl implements  ProductRepository{
             ps.setInt(4, stock);
             ps.executeUpdate();
         }
-
     }
 
-    @Override
-    public int count() {
-        return 0;
-    }
+    @Override          // SELECT COUNT(*) FROM product;
+    public int count() throws SQLException {
 
+        try (Connection con = dbManager.getConnection();
+             PreparedStatement ps = con.prepareStatement(SAVE_PRODUCT)) {
+
+            return count();
+        }
+    }
 }

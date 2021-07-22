@@ -12,11 +12,11 @@ public interface ProductRepository {
 
     void delete(int id) throws Exception;
 
-    void updateDescription(int id, String description);
+    void updateDescription(int id, String description) throws SQLException;
 
     void updateStock(int id, int stock) throws SQLException;
 
     void save(String name, String description, int stock, double price) throws SQLException;
 
-    int count();
+    int count() throws SQLException;
 }
