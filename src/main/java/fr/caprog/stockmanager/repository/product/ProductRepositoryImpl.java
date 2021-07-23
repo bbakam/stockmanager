@@ -23,6 +23,7 @@ public class ProductRepositoryImpl implements  ProductRepository{
     private static final String UPDATE_NAME_PRODUCT = "update product set stock = ? where id = ?";
     private static final int DELETED_ONE_DATA = 1;
     private static final int NOT_DELETED_DATA = 0;
+    private static final String COUNT_PRODUCT = "select count (*) from product";
 
     private DBManager dbManager;
 
@@ -127,7 +128,16 @@ public class ProductRepositoryImpl implements  ProductRepository{
     public int count() throws SQLException {
 
         try (Connection con = dbManager.getConnection();
-             PreparedStatement ps = con.prepareStatement(SAVE_PRODUCT)) {
+             PreparedStatement ps = con.prepareStatement(COUNT_PRODUCT);
+             ResultSet rs = ps.executeQuery()) {
+
+            while(rs.next()) {
+                Product count = new Product();
+                count.setName(rs.getString("name"));
+                count.setDescription(rs.getString("description"));
+                count.setStock(rs.getInt("stock"));
+                count.setPrice(rs.getDouble("price"));
+            }
 
             return count();
         }
