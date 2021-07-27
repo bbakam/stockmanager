@@ -131,12 +131,9 @@ public class ProductRepositoryImpl implements  ProductRepository{
              PreparedStatement ps = con.prepareStatement(COUNT_PRODUCT);
              ResultSet rs = ps.executeQuery()) {
 
-            while(rs.next()) {
+            rs.getInt(1); {
                 Product count = new Product();
                 count.setName(rs.getString("name"));
-                count.setDescription(rs.getString("description"));
-                count.setStock(rs.getInt("stock"));
-                count.setPrice(rs.getDouble("price"));
             }
 
             return count();

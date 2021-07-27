@@ -38,4 +38,6 @@ public class Product {
         this.price = price;
     }
 
+    public void setPosition(float position) {
+    }
 }
