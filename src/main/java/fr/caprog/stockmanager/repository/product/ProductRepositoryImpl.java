@@ -134,9 +134,29 @@ public class ProductRepositoryImpl implements  ProductRepository{
             rs.getInt(1); {
                 Product count = new Product();
                 count.setName(rs.getString("name"));
+                count.setPosition(rs.getFloat("id"));
             }
 
             return count();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
